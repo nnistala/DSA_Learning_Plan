@@ -3,7 +3,7 @@ const path = require('path');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   distDir: process.env.NEXT_DIST_DIR || '.next',
-  output: process.env.NEXT_OUTPUT_MODE,
+  output: 'export',
   trailingSlash: true,
   basePath: process.env.NODE_ENV === 'production' ? '/DSA_Learning_Plan' : '',
   assetPrefix: process.env.NODE_ENV === 'production' ? '/DSA_Learning_Plan/' : '',
