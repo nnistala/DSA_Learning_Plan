@@ -692,3 +692,4 @@ export const additionalPatterns = [
     keyTechniques: ['HashMap + LinkedList', 'Multiple Data Structures', 'API Design']
   }
 ];
+

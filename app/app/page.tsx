@@ -73,7 +73,7 @@ export default function HomePage() {
           </div>
           
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-            Master the <span className="text-primary">Top 75</span><br />
+            Master <span className="text-primary">125+</span><br />
             DSA Problems
           </h1>
           

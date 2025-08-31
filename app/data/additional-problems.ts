@@ -318,3 +318,4 @@ export const additionalProblems = {
 export const getAdditionalProblemsCount = () => {
   return Object.values(additionalProblems).reduce((total, problems) => total + problems.length, 0);
 };
+

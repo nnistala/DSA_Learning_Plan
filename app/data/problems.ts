@@ -890,6 +890,250 @@ function isAlphaNumeric(char) {
           'Merge alternately from both halves'
         ],
         relatedProblems: ['reverse-linked-list', 'palindrome-linked-list']
+      },
+      {
+        id: 'squares-sorted-array',
+        title: 'Squares of a Sorted Array',
+        difficulty: 'Easy',
+        pattern: 'Two Pointers',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 977,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(n)',
+        description: 'Given an integer array sorted in non-decreasing order, return array of squares in sorted order.',
+        approach: 'Two pointers from both ends. Compare absolute values and place larger squares from the end.',
+        solution: `function sortedSquares(nums) {
+    const result = new Array(nums.length);
+    let left = 0, right = nums.length - 1;
+    let pos = nums.length - 1;
+    
+    while (left <= right) {
+        const leftSquare = nums[left] * nums[left];
+        const rightSquare = nums[right] * nums[right];
+        
+        if (leftSquare > rightSquare) {
+            result[pos] = leftSquare;
+            left++;
+        } else {
+            result[pos] = rightSquare;
+            right--;
+        }
+        pos--;
+    }
+    
+    return result;
+}`,
+        keyPoints: ['Two pointers from both ends', 'Fill result array from right to left', 'Compare absolute values'],
+        relatedProblems: ['sort-colors', 'merge-sorted-array']
+      },
+      {
+        id: 'sort-colors',
+        title: 'Sort Colors',
+        difficulty: 'Medium',
+        pattern: 'Two Pointers',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 75,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Sort an array with only 0s, 1s, and 2s in-place.',
+        approach: 'Dutch National Flag algorithm with three pointers.',
+        solution: `function sortColors(nums) {
+    let left = 0, right = nums.length - 1, current = 0;
+    
+    while (current <= right) {
+        if (nums[current] === 0) {
+            [nums[left], nums[current]] = [nums[current], nums[left]];
+            left++;
+            current++;
+        } else if (nums[current] === 2) {
+            [nums[current], nums[right]] = [nums[right], nums[current]];
+            right--;
+        } else {
+            current++;
+        }
+    }
+}`,
+        keyPoints: ['Three pointers for three regions', 'Dutch National Flag algorithm', 'Handle swapped elements carefully'],
+        relatedProblems: ['partition-array', 'wiggle-sort']
+      },
+      {
+        id: 'remove-duplicates-ii',
+        title: 'Remove Duplicates from Sorted Array II',
+        difficulty: 'Medium',
+        pattern: 'Two Pointers',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 80,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Remove duplicates such that each unique element appears at most twice.',
+        approach: 'Two pointers with count tracking. Allow up to 2 occurrences.',
+        solution: `function removeDuplicates(nums) {
+    if (nums.length <= 2) return nums.length;
+    
+    let writeIndex = 2;
+    
+    for (let i = 2; i < nums.length; i++) {
+        if (nums[i] !== nums[writeIndex - 2]) {
+            nums[writeIndex] = nums[i];
+            writeIndex++;
+        }
+    }
+    
+    return writeIndex;
+}`,
+        keyPoints: ['Compare with element 2 positions back', 'Write pointer tracks valid position', 'Generalized for k duplicates'],
+        relatedProblems: ['remove-duplicates-sorted-array', 'remove-element']
+      },
+      {
+        id: 'backspace-string-compare',
+        title: 'Backspace String Compare',
+        difficulty: 'Easy',
+        pattern: 'Two Pointers',
+        companies: ['Google', 'Meta', 'Microsoft'],
+        leetcodeNumber: 844,
+        frequency: 'Medium',
+        timeComplexity: 'O(m + n)',
+        spaceComplexity: 'O(1)',
+        description: 'Compare two strings after processing backspaces (#).',
+        approach: 'Process strings from right to left with two pointers.',
+        solution: `function backspaceCompare(s, t) {
+    let i = s.length - 1, j = t.length - 1;
+    let skipS = 0, skipT = 0;
+    
+    while (i >= 0 || j >= 0) {
+        while (i >= 0) {
+            if (s[i] === '#') {
+                skipS++;
+                i--;
+            } else if (skipS > 0) {
+                skipS--;
+                i--;
+            } else {
+                break;
+            }
+        }
+        
+        while (j >= 0) {
+            if (t[j] === '#') {
+                skipT++;
+                j--;
+            } else if (skipT > 0) {
+                skipT--;
+                j--;
+            } else {
+                break;
+            }
+        }
+        
+        if (i >= 0 && j >= 0 && s[i] !== t[j]) return false;
+        if ((i >= 0) !== (j >= 0)) return false;
+        
+        i--;
+        j--;
+    }
+    
+    return true;
+}`,
+        keyPoints: ['Process from right to left', 'Handle backspaces with skip counters', 'Compare valid characters only'],
+        relatedProblems: ['valid-palindrome', 'string-compression']
+      },
+      {
+        id: 'minimum-size-subarray-sum',
+        title: 'Minimum Size Subarray Sum',
+        difficulty: 'Medium',
+        pattern: 'Two Pointers',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 209,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find minimum length of subarray with sum >= target.',
+        approach: 'Sliding window with two pointers. Expand right, contract left when sum >= target.',
+        solution: `function minSubArrayLen(target, nums) {
+    let left = 0, sum = 0, minLength = Infinity;
+    
+    for (let right = 0; right < nums.length; right++) {
+        sum += nums[right];
+        
+        while (sum >= target) {
+            minLength = Math.min(minLength, right - left + 1);
+            sum -= nums[left];
+            left++;
+        }
+    }
+    
+    return minLength === Infinity ? 0 : minLength;
+}`,
+        keyPoints: ['Sliding window technique', 'Contract window when condition met', 'Track minimum length seen'],
+        relatedProblems: ['longest-substring-without-repeating', 'maximum-size-subarray-sum']
+      },
+      {
+        id: 'move-zeroes',
+        title: 'Move Zeroes',
+        difficulty: 'Easy',
+        pattern: 'Two Pointers',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 283,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Given an integer array nums, move all 0\'s to the end of it while maintaining the relative order of the non-zero elements.',
+        approach: 'Use two pointers: one for writing position, one for reading. Overwrite zeros with non-zeros.',
+        solution: `function moveZeroes(nums) {
+    let writeIndex = 0;
+    
+    for (let readIndex = 0; readIndex < nums.length; readIndex++) {
+        if (nums[readIndex] !== 0) {
+            nums[writeIndex] = nums[readIndex];
+            writeIndex++;
+        }
+    }
+    
+    // Fill remaining positions with zeros
+    for (let i = writeIndex; i < nums.length; i++) {
+        nums[i] = 0;
+    }
+}`,
+        keyPoints: [
+          'Two pointers: read and write',
+          'Overwrite zeros with non-zeros',
+          'Fill remaining with zeros'
+        ],
+        relatedProblems: ['remove-element', 'remove-duplicates-sorted-array']
+      },
+      {
+        id: 'remove-element',
+        title: 'Remove Element',
+        difficulty: 'Easy',
+        pattern: 'Two Pointers',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 27,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Given an integer array nums and an integer val, remove all occurrences of val in nums in-place.',
+        approach: 'Use two pointers: one for writing position, one for reading. Skip target values.',
+        solution: `function removeElement(nums, val) {
+    let writeIndex = 0;
+    
+    for (let readIndex = 0; readIndex < nums.length; readIndex++) {
+        if (nums[readIndex] !== val) {
+            nums[writeIndex] = nums[readIndex];
+            writeIndex++;
+        }
+    }
+    
+    return writeIndex;
+}`,
+        keyPoints: [
+          'Two pointers technique',
+          'Overwrite target values',
+          'Return new length'
+        ],
+        relatedProblems: ['move-zeroes', 'remove-duplicates-sorted-array']
       }
     ]
   },
@@ -1079,6 +1323,215 @@ function isAlphaNumeric(char) {
           'Pop from min stack when minimum removed'
         ],
         relatedProblems: ['max-stack', 'sliding-window-maximum']
+      },
+      {
+        id: 'largest-rectangle-histogram',
+        title: 'Largest Rectangle in Histogram',
+        difficulty: 'Hard',
+        pattern: 'Stack',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 84,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(n)',
+        description: 'Find the area of the largest rectangle in histogram.',
+        approach: 'Use stack to track increasing heights. Calculate area when height decreases.',
+        solution: `function largestRectangleArea(heights) {
+    const stack = [];
+    let maxArea = 0;
+    
+    for (let i = 0; i <= heights.length; i++) {
+        const currentHeight = i === heights.length ? 0 : heights[i];
+        
+        while (stack.length > 0 && currentHeight < heights[stack[stack.length - 1]]) {
+            const height = heights[stack.pop()];
+            const width = stack.length === 0 ? i : i - stack[stack.length - 1] - 1;
+            maxArea = Math.max(maxArea, height * width);
+        }
+        
+        stack.push(i);
+    }
+    
+    return maxArea;
+}`,
+        keyPoints: ['Stack maintains increasing heights', 'Calculate area when popping', 'Add sentinel 0 at end'],
+        relatedProblems: ['maximal-rectangle', 'remove-k-digits']
+      },
+      {
+        id: 'daily-temperatures',
+        title: 'Daily Temperatures',
+        difficulty: 'Medium',
+        pattern: 'Stack',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 739,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(n)',
+        description: 'Find how many days until warmer temperature for each day.',
+        approach: 'Monotonic decreasing stack. Pop when finding warmer temperature.',
+        solution: `function dailyTemperatures(temperatures) {
+    const result = new Array(temperatures.length).fill(0);
+    const stack = [];
+    
+    for (let i = 0; i < temperatures.length; i++) {
+        while (stack.length > 0 && temperatures[i] > temperatures[stack[stack.length - 1]]) {
+            const prevIndex = stack.pop();
+            result[prevIndex] = i - prevIndex;
+        }
+        stack.push(i);
+    }
+    
+    return result;
+}`,
+        keyPoints: ['Monotonic stack pattern', 'Store indices not values', 'Pop when condition met'],
+        relatedProblems: ['next-greater-element', 'online-stock-span']
+      },
+      {
+        id: 'next-greater-element',
+        title: 'Next Greater Element I',
+        difficulty: 'Easy',
+        pattern: 'Stack',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 496,
+        frequency: 'Medium',
+        timeComplexity: 'O(m + n)',
+        spaceComplexity: 'O(n)',
+        description: 'Find next greater element for each element in nums1 using nums2.',
+        approach: 'Use stack to precompute next greater elements in nums2, then lookup.',
+        solution: `function nextGreaterElement(nums1, nums2) {
+    const stack = [];
+    const nextGreater = new Map();
+    
+    // Find next greater for all elements in nums2
+    for (let num of nums2) {
+        while (stack.length > 0 && stack[stack.length - 1] < num) {
+            nextGreater.set(stack.pop(), num);
+        }
+        stack.push(num);
+    }
+    
+    // Lookup for nums1
+    return nums1.map(num => nextGreater.get(num) || -1);
+}`,
+        keyPoints: ['Precompute with monotonic stack', 'Use HashMap for O(1) lookup', 'Handle elements with no greater'],
+        relatedProblems: ['daily-temperatures', 'next-greater-element-ii']
+      },
+      {
+        id: 'remove-k-digits',
+        title: 'Remove K Digits',
+        difficulty: 'Medium',
+        pattern: 'Stack',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 402,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(n)',
+        description: 'Remove k digits from number to make smallest possible number.',
+        approach: 'Use stack to maintain increasing sequence. Remove larger digits first.',
+        solution: `function removeKdigits(num, k) {
+    const stack = [];
+    let removals = k;
+    
+    for (let digit of num) {
+        while (stack.length > 0 && stack[stack.length - 1] > digit && removals > 0) {
+            stack.pop();
+            removals--;
+        }
+        stack.push(digit);
+    }
+    
+    // Remove remaining digits from end
+    while (removals > 0) {
+        stack.pop();
+        removals--;
+    }
+    
+    // Handle leading zeros and empty result
+    const result = stack.join('').replace(/^0+/, '');
+    return result || '0';
+}`,
+        keyPoints: ['Greedy removal using monotonic stack', 'Remove larger digits first', 'Handle edge cases: leading zeros, empty result'],
+        relatedProblems: ['create-maximum-number', 'smallest-subsequence']
+      },
+      {
+        id: 'decode-string',
+        title: 'Decode String',
+        difficulty: 'Medium',
+        pattern: 'Stack',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 394,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(n)',
+        description: 'Decode string with pattern k[encoded_string].',
+        approach: 'Use stack to handle nested brackets. Track counts and strings separately.',
+        solution: `function decodeString(s) {
+    const stack = [];
+    let currentString = '';
+    let currentNum = 0;
+    
+    for (let char of s) {
+        if (char >= '0' && char <= '9') {
+            currentNum = currentNum * 10 + parseInt(char);
+        } else if (char === '[') {
+            stack.push([currentString, currentNum]);
+            currentString = '';
+            currentNum = 0;
+        } else if (char === ']') {
+            const [prevString, count] = stack.pop();
+            currentString = prevString + currentString.repeat(count);
+        } else {
+            currentString += char;
+        }
+    }
+    
+    return currentString;
+}`,
+        keyPoints: ['Stack stores string and count pairs', 'Build number digit by digit', 'Handle nested brackets correctly'],
+        relatedProblems: ['basic-calculator', 'parse-lisp-expression']
+      },
+      {
+        id: 'asteroid-collision',
+        title: 'Asteroid Collision',
+        difficulty: 'Medium',
+        pattern: 'Stack',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 735,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(n)',
+        description: 'Find the final state after all asteroid collisions.',
+        approach: 'Use stack to track moving right asteroids. Handle collisions when left-moving found.',
+        solution: `function asteroidCollision(asteroids) {
+    const stack = [];
+    
+    for (let asteroid of asteroids) {
+        let survived = true;
+        
+        while (stack.length > 0 && asteroid < 0 && stack[stack.length - 1] > 0) {
+            const top = stack[stack.length - 1];
+            
+            if (Math.abs(asteroid) > top) {
+                stack.pop();
+            } else if (Math.abs(asteroid) === top) {
+                stack.pop();
+                survived = false;
+                break;
+            } else {
+                survived = false;
+                break;
+            }
+        }
+        
+        if (survived) {
+            stack.push(asteroid);
+        }
+    }
+    
+    return stack;
+}`,
+        keyPoints: ['Stack tracks right-moving asteroids', 'Handle three collision outcomes', 'Only positive/negative collide'],
+        relatedProblems: ['car-fleet', 'remove-all-adjacent-duplicates']
       }
     ]
   },
@@ -1370,6 +1823,159 @@ function isAlphaNumeric(char) {
           'Collect all valid starting indices'
         ],
         relatedProblems: ['permutation-in-string', 'group-anagrams']
+      },
+      {
+        id: 'sliding-window-maximum',
+        title: 'Sliding Window Maximum',
+        difficulty: 'Hard',
+        pattern: 'Sliding Window',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 239,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(k)',
+        description: 'Return the maximum element in each sliding window of size k.',
+        approach: 'Use deque to maintain decreasing order of elements in current window.',
+        solution: `function maxSlidingWindow(nums, k) {
+    const result = [];
+    const deque = []; // stores indices
+    
+    for (let i = 0; i < nums.length; i++) {
+        // Remove indices outside current window
+        while (deque.length > 0 && deque[0] <= i - k) {
+            deque.shift();
+        }
+        
+        // Remove indices of smaller elements
+        while (deque.length > 0 && nums[deque[deque.length - 1]] <= nums[i]) {
+            deque.pop();
+        }
+        
+        deque.push(i);
+        
+        // Add to result when window is complete
+        if (i >= k - 1) {
+            result.push(nums[deque[0]]);
+        }
+    }
+    
+    return result;
+}`,
+        keyPoints: ['Deque maintains decreasing order', 'Store indices not values', 'Remove outdated indices'],
+        relatedProblems: ['sliding-window-median', 'constrained-subsequence-sum']
+      },
+      {
+        id: 'fruits-into-baskets',
+        title: 'Fruit Into Baskets',
+        difficulty: 'Medium',
+        pattern: 'Sliding Window',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 904,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find the maximum number of fruits you can collect with at most 2 types.',
+        approach: 'Sliding window with at most 2 distinct elements.',
+        solution: `function totalFruit(fruits) {
+    const count = new Map();
+    let left = 0, maxFruits = 0;
+    
+    for (let right = 0; right < fruits.length; right++) {
+        count.set(fruits[right], (count.get(fruits[right]) || 0) + 1);
+        
+        while (count.size > 2) {
+            count.set(fruits[left], count.get(fruits[left]) - 1);
+            if (count.get(fruits[left]) === 0) {
+                count.delete(fruits[left]);
+            }
+            left++;
+        }
+        
+        maxFruits = Math.max(maxFruits, right - left + 1);
+    }
+    
+    return maxFruits;
+}`,
+        keyPoints: ['At most 2 distinct elements', 'Contract window when > 2 types', 'Track maximum window size'],
+        relatedProblems: ['longest-substring-k-distinct', 'subarrays-k-different']
+      },
+      {
+        id: 'max-consecutive-ones-iii',
+        title: 'Max Consecutive Ones III',
+        difficulty: 'Medium',
+        pattern: 'Sliding Window',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 1004,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find max consecutive 1s if you can flip at most k zeros.',
+        approach: 'Sliding window tracking zeros count. Contract when zeros > k.',
+        solution: `function longestOnes(nums, k) {
+    let left = 0, maxLength = 0, zerosCount = 0;
+    
+    for (let right = 0; right < nums.length; right++) {
+        if (nums[right] === 0) zerosCount++;
+        
+        while (zerosCount > k) {
+            if (nums[left] === 0) zerosCount--;
+            left++;
+        }
+        
+        maxLength = Math.max(maxLength, right - left + 1);
+    }
+    
+    return maxLength;
+}`,
+        keyPoints: ['Track zeros count in window', 'Contract when zeros exceed k', 'Track maximum valid window'],
+        relatedProblems: ['max-consecutive-ones', 'longest-repeating-character-replacement']
+      },
+      {
+        id: 'substring-with-concatenation',
+        title: 'Substring with Concatenation of All Words',
+        difficulty: 'Hard',
+        pattern: 'Sliding Window',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 30,
+        frequency: 'Medium',
+        timeComplexity: 'O(n * m)',
+        spaceComplexity: 'O(m)',
+        description: 'Find all starting indices where concatenation of all words appears.',
+        approach: 'Fixed-size sliding window with word frequency matching.',
+        solution: `function findSubstring(s, words) {
+    if (!s || !words || words.length === 0) return [];
+    
+    const result = [];
+    const wordLen = words[0].length;
+    const totalLen = wordLen * words.length;
+    const wordCount = {};
+    
+    // Count words
+    for (let word of words) {
+        wordCount[word] = (wordCount[word] || 0) + 1;
+    }
+    
+    for (let i = 0; i <= s.length - totalLen; i++) {
+        const seen = {};
+        let j = 0;
+        
+        while (j < words.length) {
+            const word = s.substr(i + j * wordLen, wordLen);
+            if (!wordCount[word]) break;
+            
+            seen[word] = (seen[word] || 0) + 1;
+            if (seen[word] > wordCount[word]) break;
+            
+            j++;
+        }
+        
+        if (j === words.length) result.push(i);
+    }
+    
+    return result;
+}`,
+        keyPoints: ['Fixed-size window equals total word length', 'Word frequency matching', 'Break early on invalid words'],
+        relatedProblems: ['minimum-window-substring', 'find-all-anagrams']
       }
     ]
   },
@@ -1759,6 +2365,74 @@ function deserialize(data) {
           'Handle null nodes explicitly'
         ],
         relatedProblems: ['serialize-deserialize-bst', 'find-duplicate-subtrees']
+      },
+      {
+        id: 'path-sum',
+        title: 'Path Sum',
+        difficulty: 'Easy',
+        pattern: 'Binary Tree',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 112,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(h)',
+        description: 'Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.',
+        approach: 'Use DFS to check if any path from root to leaf sums to target.',
+        solution: `function hasPathSum(root, targetSum) {
+    if (!root) return false;
+    
+    if (!root.left && !root.right) {
+        return targetSum === root.val;
+    }
+    
+    return hasPathSum(root.left, targetSum - root.val) ||
+           hasPathSum(root.right, targetSum - root.val);
+}`,
+        keyPoints: [
+          'DFS with target reduction',
+          'Check leaf nodes for exact match',
+          'Recursive path exploration'
+        ],
+        relatedProblems: ['path-sum-ii', 'sum-root-to-leaf-numbers']
+      },
+      {
+        id: 'sum-root-to-leaf-numbers',
+        title: 'Sum Root to Leaf Numbers',
+        difficulty: 'Medium',
+        pattern: 'Binary Tree',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 129,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(h)',
+        description: 'You are given the root of a binary tree containing digits from 0 to 9 only. Each root-to-leaf path in the tree represents a number.',
+        approach: 'Use DFS to build numbers from root to leaf and sum them.',
+        solution: `function sumNumbers(root) {
+    let totalSum = 0;
+    
+    function dfs(node, currentSum) {
+        if (!node) return;
+        
+        currentSum = currentSum * 10 + node.val;
+        
+        if (!node.left && !node.right) {
+            totalSum += currentSum;
+            return;
+        }
+        
+        dfs(node.left, currentSum);
+        dfs(node.right, currentSum);
+    }
+    
+    dfs(root, 0);
+    return totalSum;
+}`,
+        keyPoints: [
+          'Build number digit by digit',
+          'Multiply by 10 and add current digit',
+          'Sum only at leaf nodes'
+        ],
+        relatedProblems: ['path-sum', 'binary-tree-paths']
       }
     ]
   },
@@ -1835,6 +2509,40 @@ function deserialize(data) {
           'Try each coin for each amount'
         ],
         relatedProblems: ['coin-change-2', 'perfect-squares']
+      },
+      {
+        id: 'house-robber',
+        title: 'House Robber',
+        difficulty: 'Medium',
+        pattern: 'Dynamic Programming',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 198,
+        frequency: 'Very High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected.',
+        approach: 'Use DP where dp[i] = max(dp[i-1], dp[i-2] + nums[i]). Can be optimized to O(1) space.',
+        solution: `function rob(nums) {
+    if (nums.length === 0) return 0;
+    if (nums.length === 1) return nums[0];
+    
+    let prev2 = 0;
+    let prev1 = nums[0];
+    
+    for (let i = 1; i < nums.length; i++) {
+        const current = Math.max(prev1, prev2 + nums[i]);
+        prev2 = prev1;
+        prev1 = current;
+    }
+    
+    return prev1;
+}`,
+        keyPoints: [
+          'Classic DP problem',
+          'Space optimization possible',
+          'Cannot rob adjacent houses'
+        ],
+        relatedProblems: ['house-robber-2', 'climbing-stairs']
       },
       {
         id: 'longest-increasing-subsequence',
@@ -2179,6 +2887,312 @@ function deserialize(data) {
           'Handle remaining nodes'
         ],
         relatedProblems: ['merge-k-sorted-lists', 'merge-sorted-array']
+      },
+      {
+        id: 'add-two-numbers',
+        title: 'Add Two Numbers',
+        difficulty: 'Medium',
+        pattern: 'Linked List',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 2,
+        frequency: 'Very High',
+        timeComplexity: 'O(max(m, n))',
+        spaceComplexity: 'O(max(m, n))',
+        description: 'Add two numbers represented as linked lists in reverse order.',
+        approach: 'Traverse both lists simultaneously, handle carry, create new nodes.',
+        solution: `function addTwoNumbers(l1, l2) {
+    const dummy = new ListNode(0);
+    let current = dummy;
+    let carry = 0;
+    
+    while (l1 || l2 || carry) {
+        const val1 = l1 ? l1.val : 0;
+        const val2 = l2 ? l2.val : 0;
+        const sum = val1 + val2 + carry;
+        
+        carry = Math.floor(sum / 10);
+        current.next = new ListNode(sum % 10);
+        current = current.next;
+        
+        if (l1) l1 = l1.next;
+        if (l2) l2 = l2.next;
+    }
+    
+    return dummy.next;
+}`,
+        keyPoints: ['Handle different length lists', 'Don\'t forget final carry', 'Use dummy node for simplicity'],
+        relatedProblems: ['add-two-numbers-ii', 'multiply-strings']
+      },
+      {
+        id: 'intersection-linked-lists',
+        title: 'Intersection of Two Linked Lists',
+        difficulty: 'Easy',
+        pattern: 'Linked List',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 160,
+        frequency: 'High',
+        timeComplexity: 'O(m + n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find the node at which two linked lists intersect.',
+        approach: 'Two pointers. When one reaches end, start from other list\'s head.',
+        solution: `function getIntersectionNode(headA, headB) {
+    if (!headA || !headB) return null;
+    
+    let pA = headA, pB = headB;
+    
+    while (pA !== pB) {
+        pA = pA ? pA.next : headB;
+        pB = pB ? pB.next : headA;
+    }
+    
+    return pA;
+}`,
+        keyPoints: ['Two pointers eliminate length difference', 'Both reach intersection or null together', 'No extra space needed'],
+        relatedProblems: ['linked-list-cycle-ii', 'merge-two-sorted-lists']
+      },
+      {
+        id: 'palindrome-linked-list',
+        title: 'Palindrome Linked List',
+        difficulty: 'Easy',
+        pattern: 'Linked List',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 234,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Check if linked list is a palindrome.',
+        approach: 'Find middle, reverse second half, compare halves.',
+        solution: `function isPalindrome(head) {
+    if (!head || !head.next) return true;
+    
+    // Find middle
+    let slow = head, fast = head;
+    while (fast.next && fast.next.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    
+    // Reverse second half
+    let secondHalf = reverseList(slow.next);
+    
+    // Compare halves
+    let firstHalf = head;
+    while (secondHalf) {
+        if (firstHalf.val !== secondHalf.val) return false;
+        firstHalf = firstHalf.next;
+        secondHalf = secondHalf.next;
+    }
+    
+    return true;
+}
+
+function reverseList(head) {
+    let prev = null, current = head;
+    while (current) {
+        const next = current.next;
+        current.next = prev;
+        prev = current;
+        current = next;
+    }
+    return prev;
+}`,
+        keyPoints: ['Use slow/fast pointers for middle', 'Reverse second half to compare', 'O(1) space solution'],
+        relatedProblems: ['reverse-linked-list', 'valid-palindrome']
+      },
+      {
+        id: 'remove-linked-list-elements',
+        title: 'Remove Linked List Elements',
+        difficulty: 'Easy',
+        pattern: 'Linked List',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 203,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Remove all elements from linked list with given value.',
+        approach: 'Use dummy node to handle edge cases. Track previous node.',
+        solution: `function removeElements(head, val) {
+    const dummy = new ListNode(0);
+    dummy.next = head;
+    let prev = dummy, current = head;
+    
+    while (current) {
+        if (current.val === val) {
+            prev.next = current.next;
+        } else {
+            prev = current;
+        }
+        current = current.next;
+    }
+    
+    return dummy.next;
+}`,
+        keyPoints: ['Dummy node handles head removal', 'Track previous for deletion', 'Update pointers carefully'],
+        relatedProblems: ['remove-nth-node-from-end', 'delete-node-linked-list']
+      },
+      {
+        id: 'copy-list-random-pointer',
+        title: 'Copy List with Random Pointer',
+        difficulty: 'Medium',
+        pattern: 'Linked List',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 138,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Deep copy linked list where each node has next and random pointer.',
+        approach: 'Three passes: create copies interleaved, assign random pointers, separate lists.',
+        solution: `function copyRandomList(head) {
+    if (!head) return null;
+    
+    // First pass: create copy nodes
+    let current = head;
+    while (current) {
+        const copy = new Node(current.val);
+        copy.next = current.next;
+        current.next = copy;
+        current = copy.next;
+    }
+    
+    // Second pass: assign random pointers
+    current = head;
+    while (current) {
+        if (current.random) {
+            current.next.random = current.random.next;
+        }
+        current = current.next.next;
+    }
+    
+    // Third pass: separate lists
+    const dummy = new Node(0);
+    let copyPrev = dummy;
+    current = head;
+    
+    while (current) {
+        const copy = current.next;
+        current.next = copy.next;
+        copyPrev.next = copy;
+        copyPrev = copy;
+        current = current.next;
+    }
+    
+    return dummy.next;
+}`,
+        keyPoints: ['Interleave original and copy nodes', 'Use interleaving to handle random pointers', 'Separate lists in final pass'],
+        relatedProblems: ['clone-graph', 'deep-copy-linked-list']
+      },
+      {
+        id: 'flatten-multilevel-doubly-linked-list',
+        title: 'Flatten a Multilevel Doubly Linked List',
+        difficulty: 'Medium',
+        pattern: 'Linked List',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 430,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(d)',
+        description: 'Flatten multilevel doubly linked list to single level.',
+        approach: 'DFS traversal. Use stack to track branch points.',
+        solution: `function flatten(head) {
+    if (!head) return head;
+    
+    const stack = [];
+    let current = head;
+    
+    while (current) {
+        if (current.child) {
+            if (current.next) {
+                stack.push(current.next);
+            }
+            current.next = current.child;
+            current.child.prev = current;
+            current.child = null;
+        }
+        
+        if (!current.next && stack.length > 0) {
+            const next = stack.pop();
+            current.next = next;
+            next.prev = current;
+        }
+        
+        current = current.next;
+    }
+    
+    return head;
+}`,
+        keyPoints: ['Use stack for DFS traversal', 'Connect child as next node', 'Handle prev pointers in doubly linked list'],
+        relatedProblems: ['binary-tree-to-linked-list', 'serialize-deserialize-tree']
+      },
+      {
+        id: 'delete-node-linked-list',
+        title: 'Delete Node in a Linked List',
+        difficulty: 'Easy',
+        pattern: 'Linked List',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 237,
+        frequency: 'Medium',
+        timeComplexity: 'O(1)',
+        spaceComplexity: 'O(1)',
+        description: 'Write a function to delete a node in a singly-linked list. You will not be given access to the head of the list.',
+        approach: 'Copy next node\'s value to current node, then delete next node.',
+        solution: `function deleteNode(node) {
+    node.val = node.next.val;
+    node.next = node.next.next;
+}`,
+        keyPoints: [
+          'Copy value from next node',
+          'Update pointer to skip next node',
+          'Cannot delete last node'
+        ],
+        relatedProblems: ['remove-linked-list-elements', 'remove-nth-node-end']
+      },
+      {
+        id: 'palindrome-linked-list',
+        title: 'Palindrome Linked List',
+        difficulty: 'Easy',
+        pattern: 'Linked List',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 234,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Given the head of a singly linked list, return true if it is a palindrome or false otherwise.',
+        approach: 'Find middle, reverse second half, compare with first half.',
+        solution: `function isPalindrome(head) {
+    if (!head || !head.next) return true;
+    
+    // Find middle
+    let slow = head, fast = head;
+    while (fast.next && fast.next.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    
+    // Reverse second half
+    let prev = null, current = slow.next;
+    while (current) {
+        const next = current.next;
+        current.next = prev;
+        prev = current;
+        current = next;
+    }
+    
+    // Compare
+    let first = head, second = prev;
+    while (second) {
+        if (first.val !== second.val) return false;
+        first = first.next;
+        second = second.next;
+    }
+    
+    return true;
+}`,
+        keyPoints: [
+          'Find middle with two pointers',
+          'Reverse second half',
+          'Compare first and second halves'
+        ],
+        relatedProblems: ['reverse-linked-list', 'linked-list-cycle']
       }
     ]
   },
@@ -2281,6 +3295,54 @@ function deserialize(data) {
           'Deep copy with neighbor relationships'
         ],
         relatedProblems: ['copy-list-random-pointer', 'clone-binary-tree']
+      },
+      {
+        id: 'course-schedule-ii',
+        title: 'Course Schedule II',
+        difficulty: 'Medium',
+        pattern: 'Graphs',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 210,
+        frequency: 'High',
+        timeComplexity: 'O(V + E)',
+        spaceComplexity: 'O(V)',
+        description: 'There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.',
+        approach: 'Use topological sort with DFS to detect cycles and build order.',
+        solution: `function findOrder(numCourses, prerequisites) {
+    const graph = Array(numCourses).fill().map(() => []);
+    const inDegree = Array(numCourses).fill(0);
+    
+    for (let [course, prereq] of prerequisites) {
+        graph[prereq].push(course);
+        inDegree[course]++;
+    }
+    
+    const queue = [];
+    for (let i = 0; i < numCourses; i++) {
+        if (inDegree[i] === 0) queue.push(i);
+    }
+    
+    const result = [];
+    while (queue.length > 0) {
+        const course = queue.shift();
+        result.push(course);
+        
+        for (let neighbor of graph[course]) {
+            inDegree[neighbor]--;
+            if (inDegree[neighbor] === 0) {
+                queue.push(neighbor);
+            }
+        }
+    }
+    
+    return result.length === numCourses ? result : [];
+}`,
+        keyPoints: [
+          'Topological sort with BFS',
+          'Track in-degrees',
+          'Detect cycles'
+        ],
+        relatedProblems: ['course-schedule', 'alien-dictionary']
       },
       {
         id: 'course-schedule',
@@ -2455,6 +3517,58 @@ function deserialize(data) {
         relatedProblems: ['top-k-frequent', 'kth-smallest-element-bst']
       },
       {
+        id: 'find-median-data-stream',
+        title: 'Find Median from Data Stream',
+        difficulty: 'Hard',
+        pattern: 'Heap / Priority Queue',
+        companies: ['Amazon', 'Facebook', 'Microsoft', 'Google'],
+        leetcodeNumber: 295,
+        frequency: 'Very High',
+        timeComplexity: 'O(log n)',
+        spaceComplexity: 'O(n)',
+        description: 'The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value and the median is the mean of the two middle values.',
+        approach: 'Use two heaps: max heap for smaller half, min heap for larger half.',
+        solution: `class MedianFinder {
+    constructor() {
+        this.maxHeap = []; // smaller half
+        this.minHeap = []; // larger half
+    }
+    
+    addNum(num) {
+        // Add to max heap first
+        this.maxHeap.push(num);
+        this.maxHeap.sort((a, b) => b - a);
+        
+        // Balance heaps
+        if (this.maxHeap.length > this.minHeap.length + 1) {
+            this.minHeap.push(this.maxHeap.shift());
+            this.minHeap.sort((a, b) => a - b);
+        } else if (this.maxHeap.length > 0 && this.minHeap.length > 0 && 
+                   this.maxHeap[0] > this.minHeap[0]) {
+            const maxVal = this.maxHeap.shift();
+            const minVal = this.minHeap.shift();
+            this.maxHeap.push(minVal);
+            this.minHeap.push(maxVal);
+            this.maxHeap.sort((a, b) => b - a);
+            this.minHeap.sort((a, b) => a - b);
+        }
+    }
+    
+    findMedian() {
+        if (this.maxHeap.length > this.minHeap.length) {
+            return this.maxHeap[0];
+        }
+        return (this.maxHeap[0] + this.minHeap[0]) / 2;
+    }
+}`,
+        keyPoints: [
+          'Two heap approach',
+          'Max heap for smaller half',
+          'Min heap for larger half'
+        ],
+        relatedProblems: ['sliding-window-median', 'kth-largest-element']
+      },
+      {
         id: 'merge-k-sorted-lists',
         title: 'Merge k Sorted Lists',
         difficulty: 'Hard',
@@ -2611,6 +3725,79 @@ function deserialize(data) {
           'Try all four directions'
         ],
         relatedProblems: ['word-search-ii', 'number-of-islands']
+      },
+      {
+        id: 'permutations',
+        title: 'Permutations',
+        difficulty: 'Medium',
+        pattern: 'Backtracking',
+        companies: ['Amazon', 'Microsoft', 'Google', 'Facebook'],
+        leetcodeNumber: 46,
+        frequency: 'High',
+        timeComplexity: 'O(n!)',
+        spaceComplexity: 'O(n)',
+        description: 'Given an array nums of distinct integers, return all the possible permutations.',
+        approach: 'Use backtracking to swap elements and generate all permutations.',
+        solution: `function permute(nums) {
+    const result = [];
+    
+    function backtrack(start) {
+        if (start === nums.length) {
+            result.push([...nums]);
+            return;
+        }
+        
+        for (let i = start; i < nums.length; i++) {
+            [nums[start], nums[i]] = [nums[i], nums[start]];
+            backtrack(start + 1);
+            [nums[start], nums[i]] = [nums[i], nums[start]];
+        }
+    }
+    
+    backtrack(0);
+    return result;
+}`,
+        keyPoints: [
+          'Swap-based permutation generation',
+          'Backtrack by swapping back',
+          'Generate all possible arrangements'
+        ],
+        relatedProblems: ['permutations-ii', 'next-permutation']
+      },
+      {
+        id: 'subsets',
+        title: 'Subsets',
+        difficulty: 'Medium',
+        pattern: 'Backtracking',
+        companies: ['Amazon', 'Microsoft', 'Facebook', 'Google'],
+        leetcodeNumber: 78,
+        frequency: 'High',
+        timeComplexity: 'O(2^n)',
+        spaceComplexity: 'O(n)',
+        description: 'Given an integer array nums of unique elements, return all possible subsets (the power set).',
+        approach: 'Use backtracking to include or exclude each element.',
+        solution: `function subsets(nums) {
+    const result = [];
+    
+    function backtrack(start, currentSubset) {
+        result.push([...currentSubset]);
+        
+        for (let i = start; i < nums.length; i++) {
+            currentSubset.push(nums[i]);
+            backtrack(i + 1, currentSubset);
+            currentSubset.pop();
+        }
+    }
+    
+    backtrack(0, []);
+    return result;
+}`,
+        keyPoints: [
+          'Include/exclude each element',
+          'Add subset at each step',
+          'Generate power set'
+        ],
+        relatedProblems: ['subsets-ii', 'combination-sum']
       }
     ]
   },
@@ -2703,6 +3890,93 @@ function deserialize(data) {
           'Count removed intervals'
         ],
         relatedProblems: ['merge-intervals', 'meeting-rooms']
+      },
+      {
+        id: 'meeting-rooms-ii',
+        title: 'Meeting Rooms II',
+        difficulty: 'Medium',
+        pattern: 'Intervals',
+        companies: ['Amazon', 'Microsoft', 'Facebook', 'Google'],
+        leetcodeNumber: 253,
+        frequency: 'High',
+        timeComplexity: 'O(n log n)',
+        spaceComplexity: 'O(n)',
+        description: 'Given an array of meeting time intervals, find the minimum number of conference rooms required.',
+        approach: 'Use min heap to track end times of ongoing meetings.',
+        solution: `function minMeetingRooms(intervals) {
+    if (intervals.length === 0) return 0;
+    
+    // Sort by start time
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    const endTimes = [intervals[0][1]];
+    
+    for (let i = 1; i < intervals.length; i++) {
+        const [start, end] = intervals[i];
+        
+        if (start >= endTimes[0]) {
+            // Can reuse the earliest ending room
+            endTimes.shift();
+        }
+        
+        endTimes.push(end);
+        endTimes.sort((a, b) => a - b);
+    }
+    
+    return endTimes.length;
+}`,
+        keyPoints: [
+          'Min heap for end times',
+          'Reuse rooms when possible',
+          'Track minimum rooms needed'
+        ],
+        relatedProblems: ['merge-intervals', 'non-overlapping-intervals']
+      },
+      {
+        id: 'insert-interval',
+        title: 'Insert Interval',
+        difficulty: 'Medium',
+        pattern: 'Intervals',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 57,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(n)',
+        description: 'Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).',
+        approach: 'Three phases: add intervals before new one, merge overlapping intervals, add remaining intervals.',
+        solution: `function insert(intervals, newInterval) {
+    const result = [];
+    let i = 0;
+    
+    // Add intervals that end before new interval starts
+    while (i < intervals.length && intervals[i][1] < newInterval[0]) {
+        result.push(intervals[i]);
+        i++;
+    }
+    
+    // Merge overlapping intervals
+    while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
+        newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
+        newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
+        i++;
+    }
+    
+    result.push(newInterval);
+    
+    // Add remaining intervals
+    while (i < intervals.length) {
+        result.push(intervals[i]);
+        i++;
+    }
+    
+    return result;
+}`,
+        keyPoints: [
+          'Three-phase approach',
+          'Merge overlapping intervals',
+          'Linear time complexity'
+        ],
+        relatedProblems: ['merge-intervals', 'non-overlapping-intervals']
       }
     ]
   },
@@ -2834,6 +4108,61 @@ function deserialize(data) {
           'Single pass, constant space'
         ],
         relatedProblems: ['single-number-ii', 'single-number-iii']
+      },
+      {
+        id: 'counting-bits',
+        title: 'Counting Bits',
+        difficulty: 'Easy',
+        pattern: 'Math & Bit Manipulation',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 338,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(n)',
+        description: 'Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1\'s in the binary representation of i.',
+        approach: 'Use dynamic programming: ans[i] = ans[i >> 1] + (i & 1).',
+        solution: `function countBits(n) {
+    const ans = new Array(n + 1).fill(0);
+    
+    for (let i = 1; i <= n; i++) {
+        ans[i] = ans[i >> 1] + (i & 1);
+    }
+    
+    return ans;
+}`,
+        keyPoints: [
+          'DP approach with bit manipulation',
+          'i >> 1 removes last bit',
+          'i & 1 gets last bit'
+        ],
+        relatedProblems: ['number-of-1-bits', 'power-of-two']
+      },
+      {
+        id: 'sum-of-two-integers',
+        title: 'Sum of Two Integers',
+        difficulty: 'Medium',
+        pattern: 'Math & Bit Manipulation',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 371,
+        frequency: 'Medium',
+        timeComplexity: 'O(1)',
+        spaceComplexity: 'O(1)',
+        description: 'Given two integers a and b, return the sum of the two integers without using the operators + and -.',
+        approach: 'Use bit manipulation: sum = a ^ b, carry = (a & b) << 1.',
+        solution: `function getSum(a, b) {
+    while (b !== 0) {
+        const carry = (a & b) << 1;
+        a = a ^ b;
+        b = carry;
+    }
+    return a;
+}`,
+        keyPoints: [
+          'Bit manipulation for addition',
+          'XOR for sum without carry',
+          'AND and shift for carry'
+        ],
+        relatedProblems: ['multiply-strings', 'divide-two-integers']
       }
     ]
   },
@@ -2968,6 +4297,279 @@ function deserialize(data) {
           'Narrow search space by half each time'
         ],
         relatedProblems: ['search-rotated-sorted-array', 'find-peak-element']
+      },
+      {
+        id: 'search-insert-position',
+        title: 'Search Insert Position',
+        difficulty: 'Easy',
+        pattern: 'Binary Search',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 35,
+        frequency: 'High',
+        timeComplexity: 'O(log n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find the index where target should be inserted in sorted array.',
+        approach: 'Standard binary search. Return left pointer when not found.',
+        solution: `function searchInsert(nums, target) {
+    let left = 0, right = nums.length - 1;
+    
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        
+        if (nums[mid] === target) {
+            return mid;
+        } else if (nums[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    
+    return left;
+}`,
+        keyPoints: ['Return left pointer for insertion position', 'Standard binary search template'],
+        relatedProblems: ['first-bad-version', 'find-first-last-position']
+      },
+      {
+        id: 'first-bad-version',
+        title: 'First Bad Version',
+        difficulty: 'Easy',
+        pattern: 'Binary Search',
+        companies: ['Meta', 'Amazon'],
+        leetcodeNumber: 278,
+        frequency: 'High',
+        timeComplexity: 'O(log n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find the first bad version to minimize API calls.',
+        approach: 'Binary search for first occurrence. When bad found, search left.',
+        solution: `function firstBadVersion(n) {
+    let left = 1, right = n;
+    
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2);
+        
+        if (isBadVersion(mid)) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    
+    return left;
+}`,
+        keyPoints: ['Search for first occurrence pattern', 'Use left < right for first element'],
+        relatedProblems: ['search-insert-position', 'find-first-last-position']
+      },
+      {
+        id: 'find-first-last-position',
+        title: 'Find First and Last Position of Element',
+        difficulty: 'Medium',
+        pattern: 'Binary Search',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 34,
+        frequency: 'High',
+        timeComplexity: 'O(log n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find starting and ending position of target in sorted array.',
+        approach: 'Two binary searches: one for first occurrence, one for last.',
+        solution: `function searchRange(nums, target) {
+    const findFirst = () => {
+        let left = 0, right = nums.length - 1, result = -1;
+        while (left <= right) {
+            const mid = Math.floor((left + right) / 2);
+            if (nums[mid] === target) {
+                result = mid;
+                right = mid - 1;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return result;
+    };
+    
+    const findLast = () => {
+        let left = 0, right = nums.length - 1, result = -1;
+        while (left <= right) {
+            const mid = Math.floor((left + right) / 2);
+            if (nums[mid] === target) {
+                result = mid;
+                left = mid + 1;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return result;
+    };
+    
+    return [findFirst(), findLast()];
+}`,
+        keyPoints: ['Two separate binary searches', 'For first: search left when found', 'For last: search right when found'],
+        relatedProblems: ['search-insert-position', 'count-of-range-sum']
+      },
+      {
+        id: 'search-2d-matrix',
+        title: 'Search a 2D Matrix',
+        difficulty: 'Medium',
+        pattern: 'Binary Search',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 74,
+        frequency: 'High',
+        timeComplexity: 'O(log(m*n))',
+        spaceComplexity: 'O(1)',
+        description: 'Search for target in sorted 2D matrix.',
+        approach: 'Treat 2D matrix as 1D sorted array and apply binary search.',
+        solution: `function searchMatrix(matrix, target) {
+    const m = matrix.length, n = matrix[0].length;
+    let left = 0, right = m * n - 1;
+    
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        const row = Math.floor(mid / n);
+        const col = mid % n;
+        const midValue = matrix[row][col];
+        
+        if (midValue === target) {
+            return true;
+        } else if (midValue < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    
+    return false;
+}`,
+        keyPoints: ['Convert 2D to 1D coordinates', 'row = mid / n, col = mid % n', 'Standard binary search'],
+        relatedProblems: ['search-2d-matrix-ii', 'kth-smallest-in-sorted-matrix']
+      },
+      {
+        id: 'find-peak-element',
+        title: 'Find Peak Element',
+        difficulty: 'Medium',
+        pattern: 'Binary Search',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 162,
+        frequency: 'High',
+        timeComplexity: 'O(log n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find a peak element where nums[i] > nums[i-1] and nums[i] > nums[i+1].',
+        approach: 'Binary search. Move towards the side with larger neighbor.',
+        solution: `function findPeakElement(nums) {
+    let left = 0, right = nums.length - 1;
+    
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2);
+        
+        if (nums[mid] > nums[mid + 1]) {
+            right = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    
+    return left;
+}`,
+        keyPoints: ['Always move towards larger neighbor', 'Guaranteed to find a peak', 'Works with multiple peaks'],
+        relatedProblems: ['find-peak-element-2d', 'peak-index-mountain-array']
+      },
+      {
+        id: 'kth-largest-element',
+        title: 'Kth Largest Element in an Array',
+        difficulty: 'Medium',
+        pattern: 'Binary Search',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 215,
+        frequency: 'Very High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find the kth largest element in an unsorted array.',
+        approach: 'Quickselect algorithm (binary search on partition).',
+        solution: `function findKthLargest(nums, k) {
+    const quickSelect = (left, right, k) => {
+        if (left === right) return nums[left];
+        
+        const pivotIndex = partition(left, right);
+        
+        if (k === pivotIndex) {
+            return nums[k];
+        } else if (k < pivotIndex) {
+            return quickSelect(left, pivotIndex - 1, k);
+        } else {
+            return quickSelect(pivotIndex + 1, right, k);
+        }
+    };
+    
+    const partition = (left, right) => {
+        const pivot = nums[right];
+        let i = left;
+        
+        for (let j = left; j < right; j++) {
+            if (nums[j] >= pivot) {
+                [nums[i], nums[j]] = [nums[j], nums[i]];
+                i++;
+            }
+        }
+        
+        [nums[i], nums[right]] = [nums[right], nums[i]];
+        return i;
+    };
+    
+    return quickSelect(0, nums.length - 1, k - 1);
+}`,
+        keyPoints: ['Quickselect for O(n) average time', 'Partition around pivot', 'Binary search on partitions'],
+        relatedProblems: ['top-k-frequent', 'kth-smallest-element']
+      },
+      {
+        id: 'median-two-sorted-arrays',
+        title: 'Median of Two Sorted Arrays',
+        difficulty: 'Hard',
+        pattern: 'Binary Search',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 4,
+        frequency: 'Very High',
+        timeComplexity: 'O(log(min(m,n)))',
+        spaceComplexity: 'O(1)',
+        description: 'Find median of two sorted arrays.',
+        approach: 'Binary search on smaller array to find correct partition.',
+        solution: `function findMedianSortedArrays(nums1, nums2) {
+    if (nums1.length > nums2.length) {
+        [nums1, nums2] = [nums2, nums1];
+    }
+    
+    const m = nums1.length, n = nums2.length;
+    let low = 0, high = m;
+    
+    while (low <= high) {
+        const cut1 = Math.floor((low + high) / 2);
+        const cut2 = Math.floor((m + n + 1) / 2) - cut1;
+        
+        const left1 = cut1 === 0 ? -Infinity : nums1[cut1 - 1];
+        const left2 = cut2 === 0 ? -Infinity : nums2[cut2 - 1];
+        
+        const right1 = cut1 === m ? Infinity : nums1[cut1];
+        const right2 = cut2 === n ? Infinity : nums2[cut2];
+        
+        if (left1 <= right2 && left2 <= right1) {
+            if ((m + n) % 2 === 0) {
+                return (Math.max(left1, left2) + Math.min(right1, right2)) / 2;
+            } else {
+                return Math.max(left1, left2);
+            }
+        } else if (left1 > right2) {
+            high = cut1 - 1;
+        } else {
+            low = cut1 + 1;
+        }
+    }
+    
+    return 1;
+}`,
+        keyPoints: ['Binary search on smaller array', 'Find correct partition', 'Handle odd/even cases'],
+        relatedProblems: ['kth-smallest-in-sorted-matrix', 'find-k-pairs-smallest-sums']
       }
     ]
   },
@@ -3256,6 +4858,75 @@ class Trie {
           'Single pass algorithm'
         ],
         relatedProblems: ['candy', 'jump-game']
+      },
+      {
+        id: 'jump-game',
+        title: 'Jump Game',
+        difficulty: 'Medium',
+        pattern: 'Greedy',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 55,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'You are given an integer array nums. You are initially positioned at the array\'s first index, and each element in the array represents your maximum jump length at that position.',
+        approach: 'Track the maximum reachable position. If current position exceeds max reach, return false.',
+        solution: `function canJump(nums) {
+    let maxReach = 0;
+    
+    for (let i = 0; i < nums.length; i++) {
+        if (i > maxReach) return false;
+        maxReach = Math.max(maxReach, i + nums[i]);
+        if (maxReach >= nums.length - 1) return true;
+    }
+    
+    return true;
+}`,
+        keyPoints: [
+          'Track maximum reachable position',
+          'Early termination when goal reached',
+          'Greedy approach'
+        ],
+        relatedProblems: ['jump-game-ii', 'gas-station']
+      },
+      {
+        id: 'candy',
+        title: 'Candy',
+        difficulty: 'Hard',
+        pattern: 'Greedy',
+        companies: ['Amazon', 'Microsoft', 'Google'],
+        leetcodeNumber: 135,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(n)',
+        description: 'There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings.',
+        approach: 'Two-pass greedy: left to right, then right to left to satisfy both conditions.',
+        solution: `function candy(ratings) {
+    const n = ratings.length;
+    const candies = new Array(n).fill(1);
+    
+    // Left to right pass
+    for (let i = 1; i < n; i++) {
+        if (ratings[i] > ratings[i - 1]) {
+            candies[i] = candies[i - 1] + 1;
+        }
+    }
+    
+    // Right to left pass
+    for (let i = n - 2; i >= 0; i--) {
+        if (ratings[i] > ratings[i + 1]) {
+            candies[i] = Math.max(candies[i], candies[i + 1] + 1);
+        }
+    }
+    
+    return candies.reduce((sum, candy) => sum + candy, 0);
+}`,
+        keyPoints: [
+          'Two-pass greedy algorithm',
+          'Satisfy both left and right conditions',
+          'Take maximum of two passes'
+        ],
+        relatedProblems: ['gas-station', 'jump-game']
       }
     ]
   },
@@ -3549,6 +5220,101 @@ class Trie {
           'Merge and sort tweets for news feed generation'
         ],
         relatedProblems: ['lru-cache', 'design-hit-counter']
+      },
+      {
+        id: 'design-hit-counter',
+        title: 'Design Hit Counter',
+        difficulty: 'Medium',
+        pattern: 'System Design',
+        companies: ['Amazon', 'Google', 'Microsoft'],
+        leetcodeNumber: 362,
+        frequency: 'Medium',
+        timeComplexity: 'O(1)',
+        spaceComplexity: 'O(300)',
+        description: 'Design a hit counter which counts the number of hits received in the past 5 minutes.',
+        approach: 'Use circular array to store timestamps and counts for sliding window.',
+        solution: `class HitCounter {
+    constructor() {
+        this.times = new Array(300).fill(0);
+        this.hits = new Array(300).fill(0);
+    }
+    
+    hit(timestamp) {
+        const index = timestamp % 300;
+        if (this.times[index] !== timestamp) {
+            this.times[index] = timestamp;
+            this.hits[index] = 1;
+        } else {
+            this.hits[index]++;
+        }
+    }
+    
+    getHits(timestamp) {
+        let total = 0;
+        for (let i = 0; i < 300; i++) {
+            if (timestamp - this.times[i] < 300) {
+                total += this.hits[i];
+            }
+        }
+        return total;
+    }
+}`,
+        keyPoints: [
+          'Circular array for sliding window',
+          'Modulo operation for index',
+          'Check timestamp validity'
+        ],
+        relatedProblems: ['lru-cache', 'design-twitter']
+      },
+      {
+        id: 'design-underground-system',
+        title: 'Design Underground System',
+        difficulty: 'Medium',
+        pattern: 'System Design',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 1396,
+        frequency: 'Medium',
+        timeComplexity: 'O(1)',
+        spaceComplexity: 'O(n)',
+        description: 'Design an underground system to track customer travel times between stations.',
+        approach: 'Use two HashMaps: one for check-ins, one for route statistics.',
+        solution: `class UndergroundSystem {
+    constructor() {
+        this.checkIns = new Map(); // id -> [station, time]
+        this.routes = new Map(); // route -> [totalTime, count]
+    }
+    
+    checkIn(id, stationName, t) {
+        this.checkIns.set(id, [stationName, t]);
+    }
+    
+    checkOut(id, stationName, t) {
+        const [startStation, startTime] = this.checkIns.get(id);
+        const route = startStation + ',' + stationName;
+        const duration = t - startTime;
+        
+        if (!this.routes.has(route)) {
+            this.routes.set(route, [0, 0]);
+        }
+        
+        const [totalTime, count] = this.routes.get(route);
+        this.routes.set(route, [totalTime + duration, count + 1]);
+        
+        this.checkIns.delete(id);
+    }
+    
+    getAverageTime(startStation, endStation) {
+        const route = startStation + ',' + endStation;
+        const [totalTime, count] = this.routes.get(route);
+        return totalTime / count;
+    }
+}`,
+        keyPoints: [
+          'Two HashMap approach',
+          'Track check-ins and route statistics',
+          'Calculate average from total and count'
+        ],
+        relatedProblems: ['lru-cache', 'design-twitter']
       }
     ]
   }

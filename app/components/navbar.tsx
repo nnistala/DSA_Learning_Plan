@@ -30,7 +30,7 @@ export function Navbar() {
       href: '/problems',
       label: 'Problems',
       icon: BookOpen,
-      badge: '78+'
+      badge: '125+'
     },
     {
       href: '/schedule',
@@ -38,7 +38,11 @@ export function Navbar() {
       icon: Calendar,
       badge: '17 Patterns'
     },
-
+    {
+      href: '/data-structures',
+      label: 'Data Structures',
+      icon: BarChart3
+    },
     {
       href: '/handbook',
       label: 'PDF Guide',

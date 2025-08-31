@@ -87,14 +87,14 @@ export default function ProblemsPage() {
           <h1 className="text-4xl font-bold">Problem Bank</h1>
         </div>
         <p className="text-lg text-muted-foreground mb-6">
-          Master 78+ essential DSA problems across 17 patterns, curated from FAANG interviews. Each problem includes detailed JavaScript solutions, complexity analysis, and company insights.
+          Master 125+ essential DSA problems across 17 patterns, curated from FAANG interviews. Each problem includes detailed JavaScript solutions, complexity analysis, and company insights.
         </p>
         
         {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary">78+</div>
+              <div className="text-2xl font-bold text-primary">125+</div>
               <div className="text-sm text-muted-foreground">Total Problems</div>
             </CardContent>
           </Card>
