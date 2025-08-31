@@ -21,7 +21,7 @@ export default function HomePage() {
   const features = [
     {
       icon: Target,
-      title: '78+ Curated Problems',
+      title: '125+ Curated Problems',
       description: 'Hand-picked problems from top patterns frequently asked in FAANG interviews'
     },
     {
@@ -52,12 +52,12 @@ export default function HomePage() {
   ];
 
   const patterns = [
-    { name: 'Array & Hashing', color: 'bg-red-500', count: 10 },
-    { name: 'Two Pointers', color: 'bg-blue-500', count: 6 },
-    { name: 'Sliding Window', color: 'bg-green-500', count: 5 },
-    { name: 'Trees', color: 'bg-purple-500', count: 12 },
-    { name: 'Dynamic Programming', color: 'bg-orange-500', count: 8 },
-    { name: 'Graphs', color: 'bg-pink-500', count: 7 }
+    { name: 'Array & Hashing', color: 'bg-red-500', count: 15 },
+    { name: 'Two Pointers', color: 'bg-blue-500', count: 13 },
+    { name: 'Sliding Window', color: 'bg-green-500', count: 10 },
+    { name: 'Binary Tree', color: 'bg-purple-500', count: 12 },
+    { name: 'Dynamic Programming', color: 'bg-orange-500', count: 9 },
+    { name: 'Graphs', color: 'bg-pink-500', count: 5 }
   ];
 
   return (
@@ -99,15 +99,15 @@ export default function HomePage() {
           
           <div className="flex flex-wrap justify-center gap-4 mt-12">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">75</div>
+              <div className="text-3xl font-bold text-primary">125+</div>
               <div className="text-sm text-muted-foreground">Curated Problems</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">15</div>
+              <div className="text-3xl font-bold text-primary">17</div>
               <div className="text-sm text-muted-foreground">Essential Patterns</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">60</div>
+              <div className="text-3xl font-bold text-primary">90</div>
               <div className="text-sm text-muted-foreground">Day Study Plan</div>
             </div>
             <div className="text-center">
