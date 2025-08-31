@@ -54,10 +54,21 @@ export default function HomePage() {
   const patterns = [
     { name: 'Array & Hashing', color: 'bg-red-500', count: 15 },
     { name: 'Two Pointers', color: 'bg-blue-500', count: 13 },
-    { name: 'Sliding Window', color: 'bg-green-500', count: 10 },
+    { name: 'Stack', color: 'bg-green-500', count: 10 },
+    { name: 'Sliding Window', color: 'bg-yellow-500', count: 10 },
     { name: 'Binary Tree', color: 'bg-purple-500', count: 12 },
     { name: 'Dynamic Programming', color: 'bg-orange-500', count: 9 },
-    { name: 'Graphs', color: 'bg-pink-500', count: 5 }
+    { name: 'Linked List', color: 'bg-indigo-500', count: 11 },
+    { name: 'Graphs', color: 'bg-pink-500', count: 5 },
+    { name: 'Heap / Priority Queue', color: 'bg-teal-500', count: 3 },
+    { name: 'Backtracking', color: 'bg-cyan-500', count: 4 },
+    { name: 'Intervals', color: 'bg-emerald-500', count: 4 },
+    { name: 'Math & Bit Manipulation', color: 'bg-amber-500', count: 6 },
+    { name: 'Binary Search', color: 'bg-lime-500', count: 10 },
+    { name: 'Tries', color: 'bg-violet-500', count: 3 },
+    { name: 'Greedy', color: 'bg-rose-500', count: 4 },
+    { name: 'Advanced Graphs', color: 'bg-sky-500', count: 2 },
+    { name: 'System Design', color: 'bg-fuchsia-500', count: 4 }
   ];
 
   return (
@@ -164,7 +175,7 @@ export default function HomePage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {patterns.map((pattern, index) => (
               <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
                 <CardContent className="p-6">
