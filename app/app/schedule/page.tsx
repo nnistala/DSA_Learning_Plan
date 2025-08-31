@@ -103,7 +103,7 @@ export default function SchedulePage() {
           <h1 className="text-4xl font-bold">Structured Study Plan</h1>
         </div>
         <p className="text-lg text-muted-foreground">
-          A structured learning path with 125+ problems across 17 patterns, designed to help you master DSA for FAANG technical interviews.
+          A structured learning path with 123 problems across 17 patterns, designed to help you master DSA for FAANG technical interviews.
         </p>
       </div>
 

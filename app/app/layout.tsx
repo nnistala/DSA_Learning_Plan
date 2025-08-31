@@ -9,8 +9,8 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'DSA Learning Plan - 125+ FAANG Interview Problems',
-  description: 'Master Data Structures and Algorithms with 125+ curated problems from FAANG companies. 90-day structured study plan for senior developers.',
+  title: 'DSA Learning Plan - 123 FAANG Interview Problems',
+      description: 'Master Data Structures and Algorithms with 123 curated problems from FAANG companies. 90-day structured study plan for senior developers.',
   keywords: 'DSA, Data Structures, Algorithms, Interview Prep, FAANG, LeetCode, Programming, Senior Developer, System Design',
   authors: [{ name: 'DSA Learning Plan' }],
   creator: 'DSA Learning Plan',

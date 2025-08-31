@@ -21,7 +21,7 @@ export default function HomePage() {
   const features = [
     {
       icon: Target,
-      title: '125+ Curated Problems',
+              title: '123 Curated Problems',
       description: 'Hand-picked problems from top patterns frequently asked in FAANG interviews'
     },
     {
@@ -84,7 +84,7 @@ export default function HomePage() {
           </div>
           
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-            Master <span className="text-primary">125+</span><br />
+            Master <span className="text-primary">123</span><br />
             DSA Problems
           </h1>
           
@@ -110,7 +110,7 @@ export default function HomePage() {
           
           <div className="flex flex-wrap justify-center gap-4 mt-12">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary">125+</div>
+              <div className="text-3xl font-bold text-primary">123</div>
               <div className="text-sm text-muted-foreground">Curated Problems</div>
             </div>
             <div className="text-center">

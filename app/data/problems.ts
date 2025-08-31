@@ -2590,40 +2590,7 @@ function deserialize(data) {
         ],
         relatedProblems: ['number-of-lis', 'russian-doll-envelopes']
       },
-      {
-        id: 'house-robber',
-        title: 'House Robber',
-        difficulty: 'Medium',
-        pattern: 'Dynamic Programming',
-        companies: ['Amazon', 'Microsoft', 'LinkedIn'],
-        leetcodeNumber: 198,
-        frequency: 'High',
-        timeComplexity: 'O(n)',
-        spaceComplexity: 'O(1)',
-        description: 'You are a robber planning to rob houses. You cannot rob two adjacent houses. Determine the maximum amount of money you can rob.',
-        approach: 'Use DP to track maximum money robbed up to each house.',
-        solution: `function rob(nums) {
-    if (nums.length === 0) return 0;
-    if (nums.length === 1) return nums[0];
-    
-    let prev2 = nums[0];
-    let prev1 = Math.max(nums[0], nums[1]);
-    
-    for (let i = 2; i < nums.length; i++) {
-        const current = Math.max(prev1, prev2 + nums[i]);
-        prev2 = prev1;
-        prev1 = current;
-    }
-    
-    return prev1;
-}`,
-        keyPoints: [
-          'Choice: rob current house or not',
-          'Space-optimized DP',
-          'Classic optimization problem'
-        ],
-        relatedProblems: ['house-robber-ii', 'house-robber-iii']
-      },
+
       {
         id: 'word-break',
         title: 'Word Break',
@@ -3146,54 +3113,7 @@ function reverseList(head) {
         ],
         relatedProblems: ['remove-linked-list-elements', 'remove-nth-node-end']
       },
-      {
-        id: 'palindrome-linked-list',
-        title: 'Palindrome Linked List',
-        difficulty: 'Easy',
-        pattern: 'Linked List',
-        companies: ['Amazon', 'Microsoft', 'Google'],
-        leetcodeNumber: 234,
-        frequency: 'High',
-        timeComplexity: 'O(n)',
-        spaceComplexity: 'O(1)',
-        description: 'Given the head of a singly linked list, return true if it is a palindrome or false otherwise.',
-        approach: 'Find middle, reverse second half, compare with first half.',
-        solution: `function isPalindrome(head) {
-    if (!head || !head.next) return true;
-    
-    // Find middle
-    let slow = head, fast = head;
-    while (fast.next && fast.next.next) {
-        slow = slow.next;
-        fast = fast.next.next;
-    }
-    
-    // Reverse second half
-    let prev = null, current = slow.next;
-    while (current) {
-        const next = current.next;
-        current.next = prev;
-        prev = current;
-        current = next;
-    }
-    
-    // Compare
-    let first = head, second = prev;
-    while (second) {
-        if (first.val !== second.val) return false;
-        first = first.next;
-        second = second.next;
-    }
-    
-    return true;
-}`,
-        keyPoints: [
-          'Find middle with two pointers',
-          'Reverse second half',
-          'Compare first and second halves'
-        ],
-        relatedProblems: ['reverse-linked-list', 'linked-list-cycle']
-      }
+
     ]
   },
   {
