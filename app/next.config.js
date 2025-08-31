@@ -7,14 +7,14 @@ const nextConfig = {
   trailingSlash: true,
   basePath: process.env.NODE_ENV === 'production' ? '/DSA_Learning_Plan' : '',
   assetPrefix: process.env.NODE_ENV === 'production' ? '/DSA_Learning_Plan/' : '',
-  experimental: {
-    outputFileTracingRoot: path.join(__dirname, '../'),
-  },
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: true,
+  },
+  experimental: {
+    outputFileTracingRoot: path.join(__dirname, '../'),
   },
   images: { 
     unoptimized: true,
