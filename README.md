@@ -1,6 +1,6 @@
 # 🚀 DSA Learning Plan - FAANG Interview Preparation
 
-A comprehensive, interactive platform for mastering Data Structures & Algorithms with **125+ curated problems** designed specifically for senior developers preparing for FAANG interviews.
+A comprehensive, interactive platform for mastering Data Structures & Algorithms with **123 curated problems** designed specifically for senior developers preparing for FAANG interviews.
 
 ## ✨ Features
 
