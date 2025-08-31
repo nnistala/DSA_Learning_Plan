@@ -5320,14 +5320,14 @@ class Trie {
   }
 ];
 
-// Study schedule for 60 days
+// Study schedule for 90 days
 export const studySchedule = {
-  totalDays: 60,
+  totalDays: 90,
   phaseDuration: {
-    foundation: 15, // Days 1-15
-    intermediate: 25, // Days 16-40
-    advanced: 15,   // Days 41-55
-    revision: 5     // Days 56-60
+    foundation: 20, // Days 1-20
+    intermediate: 35, // Days 21-55
+    advanced: 25,   // Days 56-80
+    revision: 10     // Days 81-90
   },
   dailyGoals: {
     foundation: {

@@ -27,38 +27,38 @@ export default function SchedulePage() {
   const phases = [
     {
       name: 'Foundation',
-      days: '1-15',
+      days: '1-20',
       duration: studySchedule.phaseDuration.foundation,
       goals: studySchedule.dailyGoals.foundation,
       description: 'Build strong fundamentals with basic patterns',
-      patterns: ['Array & Hashing', 'Two Pointers', 'Sliding Window'],
+      patterns: ['Array & Hashing', 'Two Pointers', 'Sliding Window', 'Stack'],
       color: 'bg-green-500'
     },
     {
       name: 'Intermediate',
-      days: '16-40',
+      days: '21-55',
       duration: studySchedule.phaseDuration.intermediate,
       goals: studySchedule.dailyGoals.intermediate,
       description: 'Tackle more complex problems and advanced patterns',
-      patterns: ['Binary Tree', 'Graphs', 'Heap/Priority Queue'],
+      patterns: ['Binary Tree', 'Linked List', 'Graphs', 'Heap/Priority Queue', 'Binary Search'],
       color: 'bg-blue-500'
     },
     {
       name: 'Advanced',
-      days: '41-55',
+      days: '56-80',
       duration: studySchedule.phaseDuration.advanced,
       goals: studySchedule.dailyGoals.advanced,
       description: 'Master challenging concepts and optimization techniques',
-      patterns: ['Dynamic Programming', 'Backtracking', 'Advanced Trees'],
+      patterns: ['Dynamic Programming', 'Backtracking', 'Intervals', 'Math & Bit Manipulation', 'Tries'],
       color: 'bg-purple-500'
     },
     {
       name: 'Revision',
-      days: '56-60',
+      days: '81-90',
       duration: studySchedule.phaseDuration.revision,
       goals: studySchedule.dailyGoals.revision,
       description: 'Review and reinforce all concepts',
-      patterns: ['Mixed Review', 'Mock Interviews', 'Weak Areas'],
+      patterns: ['Mixed Review', 'Mock Interviews', 'Weak Areas', 'System Design'],
       color: 'bg-orange-500'
     }
   ];
@@ -79,9 +79,10 @@ export default function SchedulePage() {
 
   const getWeeklySchedule = () => {
     const weeks = [];
-    for (let week = 1; week <= 9; week++) {
+    const totalWeeks = Math.ceil(studySchedule.totalDays / 7);
+    for (let week = 1; week <= totalWeeks; week++) {
       const startDay = (week - 1) * 7 + 1;
-      const endDay = Math.min(week * 7, 60);
+      const endDay = Math.min(week * 7, studySchedule.totalDays);
       const days = [];
       
       for (let day = startDay; day <= endDay; day++) {
@@ -102,7 +103,7 @@ export default function SchedulePage() {
           <h1 className="text-4xl font-bold">Structured Study Plan</h1>
         </div>
         <p className="text-lg text-muted-foreground">
-          A structured learning path with 78+ problems across 17 patterns, designed to help you master DSA for FAANG technical interviews.
+          A structured learning path with 125+ problems across 17 patterns, designed to help you master DSA for FAANG technical interviews.
         </p>
       </div>
 
@@ -129,7 +130,7 @@ export default function SchedulePage() {
               <div className="text-sm text-muted-foreground">Days Done</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-yellow-600">{60 - completedDays.size}</div>
+              <div className="text-2xl font-bold text-yellow-600">{studySchedule.totalDays - completedDays.size}</div>
               <div className="text-sm text-muted-foreground">Remaining</div>
             </div>
             <div>
@@ -280,24 +281,24 @@ export default function SchedulePage() {
                   <h4 className="font-semibold mb-3">Weekly Milestones</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between p-2 border rounded">
-                      <span>Week 1-2:</span>
-                      <span>Master Array & Hashing, Two Pointers</span>
+                      <span>Week 1-3:</span>
+                      <span>Master Array & Hashing, Two Pointers, Sliding Window</span>
                     </div>
                     <div className="flex justify-between p-2 border rounded">
-                      <span>Week 3-4:</span>
-                      <span>Sliding Window, Stack/Queue basics</span>
+                      <span>Week 4-6:</span>
+                      <span>Stack, Binary Tree, Linked List basics</span>
                     </div>
                     <div className="flex justify-between p-2 border rounded">
-                      <span>Week 5-6:</span>
-                      <span>Binary Trees, BST operations</span>
+                      <span>Week 7-9:</span>
+                      <span>Graphs, Heap/Priority Queue, Binary Search</span>
                     </div>
                     <div className="flex justify-between p-2 border rounded">
-                      <span>Week 7-8:</span>
-                      <span>Graphs, DFS/BFS, Union Find</span>
+                      <span>Week 10-12:</span>
+                      <span>Dynamic Programming, Backtracking, Intervals</span>
                     </div>
                     <div className="flex justify-between p-2 border rounded">
-                      <span>Week 9:</span>
-                      <span>Review and mock interviews</span>
+                      <span>Week 13:</span>
+                      <span>Math & Bit Manipulation, Tries, System Design</span>
                     </div>
                   </div>
                 </div>
