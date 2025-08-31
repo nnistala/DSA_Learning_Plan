@@ -87,46 +87,36 @@ export default function ProblemsPage() {
           <h1 className="text-4xl font-bold">Problem Bank</h1>
         </div>
         <p className="text-lg text-muted-foreground mb-6">
-          Master the top 75 DSA problems asked by leading tech companies. Each problem includes detailed solutions, complexity analysis, and company insights.
+          Master 78+ essential DSA problems across 17 patterns, curated from FAANG interviews. Each problem includes detailed JavaScript solutions, complexity analysis, and company insights.
         </p>
         
-        {/* Progress Overview */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Target className="h-5 w-5" />
-              Your Progress
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-4 mb-4">
-              <div className="flex-1">
-                <Progress value={progressStats.percentage} className="h-3" />
-              </div>
-              <span className="text-sm font-medium">
-                {progressStats.completed}/{progressStats.total} ({progressStats.percentage}%)
-              </span>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div>
-                <div className="text-2xl font-bold text-primary">{progressStats.completed}</div>
-                <div className="text-sm text-muted-foreground">Completed</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-yellow-600">{progressStats.total - progressStats.completed}</div>
-                <div className="text-sm text-muted-foreground">Remaining</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-green-600">{patterns.length}</div>
-                <div className="text-sm text-muted-foreground">Patterns</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-blue-600">60</div>
-                <div className="text-sm text-muted-foreground">Day Plan</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-primary">78+</div>
+              <div className="text-sm text-muted-foreground">Total Problems</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-green-600">17</div>
+              <div className="text-sm text-muted-foreground">Patterns</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-blue-600">FAANG</div>
+              <div className="text-sm text-muted-foreground">Interview Ready</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="text-2xl font-bold text-purple-600">100%</div>
+              <div className="text-sm text-muted-foreground">Free Access</div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       {/* Filters */}

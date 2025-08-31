@@ -26,7 +26,9 @@ export interface Pattern {
   keyTechniques: string[];
 }
 
-// Top 75 Curated Problems for FAANG Interviews
+// Import will be added inline below
+
+// Enhanced DSA Problems Collection for FAANG Interviews
 export const patterns: Pattern[] = [
   {
     id: 'array-hashing',
@@ -332,6 +334,267 @@ function decode(s) {
           'Avoid duplicate work by checking predecessors'
         ],
         relatedProblems: ['missing-ranges', 'binary-tree-longest-consecutive-sequence']
+      },
+      {
+        id: 'longest-palindromic-substring',
+        title: 'Longest Palindromic Substring',
+        difficulty: 'Medium',
+        pattern: 'Array & Hashing',
+        companies: ['Amazon', 'Google', 'Meta', 'Microsoft'],
+        leetcodeNumber: 5,
+        frequency: 'Very High',
+        timeComplexity: 'O(n²)',
+        spaceComplexity: 'O(1)',
+        description: 'Given a string s, return the longest palindromic substring in s.',
+        approach: 'Expand around centers approach. For each character, treat it as center and expand outwards.',
+        solution: `function longestPalindrome(s) {
+    let start = 0, maxLen = 0;
+    
+    function expandAroundCenter(left, right) {
+        while (left >= 0 && right < s.length && s[left] === s[right]) {
+            const len = right - left + 1;
+            if (len > maxLen) {
+                start = left;
+                maxLen = len;
+            }
+            left--;
+            right++;
+        }
+    }
+    
+    for (let i = 0; i < s.length; i++) {
+        expandAroundCenter(i, i);     // odd length palindromes
+        expandAroundCenter(i, i + 1); // even length palindromes
+    }
+    
+    return s.substring(start, start + maxLen);
+}`,
+        keyPoints: [
+          'Expand around centers for both odd and even length palindromes',
+          'Track start position and maximum length found',
+          'Time complexity O(n²) but space complexity O(1)'
+        ],
+        relatedProblems: ['valid-palindrome', 'palindromic-substrings']
+      },
+      {
+        id: 'first-missing-positive',
+        title: 'First Missing Positive',
+        difficulty: 'Hard',
+        pattern: 'Array & Hashing',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 41,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Given an unsorted integer array nums, return the smallest missing positive integer.',
+        approach: 'Use the array itself as a hash table. Place each number at its correct position.',
+        solution: `function firstMissingPositive(nums) {
+    const n = nums.length;
+    
+    // Place each number in its right place
+    for (let i = 0; i < n; i++) {
+        while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] !== nums[i]) {
+            // Swap nums[i] with nums[nums[i] - 1]
+            const temp = nums[nums[i] - 1];
+            nums[nums[i] - 1] = nums[i];
+            nums[i] = temp;
+        }
+    }
+    
+    // Find the first missing positive
+    for (let i = 0; i < n; i++) {
+        if (nums[i] !== i + 1) {
+            return i + 1;
+        }
+    }
+    
+    return n + 1;
+}`,
+        keyPoints: [
+          'Use array indices as hash table positions',
+          'Cyclic sort to place numbers in correct positions',
+          'O(1) space complexity by modifying input array'
+        ],
+        relatedProblems: ['missing-number', 'find-disappeared-numbers']
+      },
+      {
+        id: 'spiral-matrix',
+        title: 'Spiral Matrix',
+        difficulty: 'Medium',
+        pattern: 'Array & Hashing',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 54,
+        frequency: 'High',
+        timeComplexity: 'O(m*n)',
+        spaceComplexity: 'O(1)',
+        description: 'Given an m x n matrix, return all elements of the matrix in spiral order.',
+        approach: 'Use four boundaries (top, bottom, left, right) and move in spiral pattern.',
+        solution: `function spiralOrder(matrix) {
+    if (!matrix || matrix.length === 0) return [];
+    
+    const result = [];
+    let top = 0, bottom = matrix.length - 1;
+    let left = 0, right = matrix[0].length - 1;
+    
+    while (top <= bottom && left <= right) {
+        // Traverse right
+        for (let col = left; col <= right; col++) {
+            result.push(matrix[top][col]);
+        }
+        top++;
+        
+        // Traverse down
+        for (let row = top; row <= bottom; row++) {
+            result.push(matrix[row][right]);
+        }
+        right--;
+        
+        // Traverse left (if we still have rows)
+        if (top <= bottom) {
+            for (let col = right; col >= left; col--) {
+                result.push(matrix[bottom][col]);
+            }
+            bottom--;
+        }
+        
+        // Traverse up (if we still have columns)
+        if (left <= right) {
+            for (let row = bottom; row >= top; row--) {
+                result.push(matrix[row][left]);
+            }
+            left++;
+        }
+    }
+    
+    return result;
+}`,
+        keyPoints: [
+          'Maintain four boundaries and shrink them as you traverse',
+          'Check boundaries before traversing left and up',
+          'Handle edge cases with single row or column'
+        ],
+        relatedProblems: ['spiral-matrix-ii', 'rotate-image']
+      },
+      {
+        id: 'rotate-array',
+        title: 'Rotate Array',
+        difficulty: 'Medium',
+        pattern: 'Array & Hashing',
+        companies: ['Amazon', 'Google', 'Microsoft'],
+        leetcodeNumber: 189,
+        frequency: 'High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Rotate array to the right by k steps.',
+        approach: 'Three reversals: entire array, first k elements, remaining elements.',
+        solution: `function rotate(nums, k) {
+    k = k % nums.length;
+    
+    function reverse(start, end) {
+        while (start < end) {
+            [nums[start], nums[end]] = [nums[end], nums[start]];
+            start++;
+            end--;
+        }
+    }
+    
+    reverse(0, nums.length - 1);
+    reverse(0, k - 1);
+    reverse(k, nums.length - 1);
+}`,
+        keyPoints: ['Three reversals technique', 'Handle k > array length with modulo'],
+        relatedProblems: ['rotate-image', 'reverse-string']
+      },
+      {
+        id: 'find-all-duplicates',
+        title: 'Find All Duplicates in an Array',
+        difficulty: 'Medium',
+        pattern: 'Array & Hashing',
+        companies: ['Amazon', 'Google'],
+        leetcodeNumber: 442,
+        frequency: 'Medium',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find all elements that appear twice in an array.',
+        approach: 'Use array indices as hash. Mark visited by negating values.',
+        solution: `function findDuplicates(nums) {
+    const result = [];
+    
+    for (let i = 0; i < nums.length; i++) {
+        const index = Math.abs(nums[i]) - 1;
+        
+        if (nums[index] < 0) {
+            result.push(index + 1);
+        } else {
+            nums[index] = -nums[index];
+        }
+    }
+    
+    return result;
+}`,
+        keyPoints: ['Use sign to mark visited elements', 'Array indices as hash table'],
+        relatedProblems: ['find-disappeared-numbers', 'first-missing-positive']
+      },
+      {
+        id: 'maximum-subarray',
+        title: 'Maximum Subarray',
+        difficulty: 'Medium',
+        pattern: 'Array & Hashing',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 53,
+        frequency: 'Very High',
+        timeComplexity: 'O(n)',
+        spaceComplexity: 'O(1)',
+        description: 'Find the contiguous subarray with the largest sum.',
+        approach: 'Kadane\'s algorithm. Reset sum to 0 when it becomes negative.',
+        solution: `function maxSubArray(nums) {
+    let maxSum = nums[0];
+    let currentSum = nums[0];
+    
+    for (let i = 1; i < nums.length; i++) {
+        currentSum = Math.max(nums[i], currentSum + nums[i]);
+        maxSum = Math.max(maxSum, currentSum);
+    }
+    
+    return maxSum;
+}`,
+        keyPoints: ['Kadane\'s algorithm', 'Reset when sum becomes negative'],
+        relatedProblems: ['maximum-product-subarray', 'maximum-sum-circular-subarray']
+      },
+      {
+        id: 'merge-sorted-array',
+        title: 'Merge Sorted Array',
+        difficulty: 'Easy',
+        pattern: 'Array & Hashing',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 88,
+        frequency: 'High',
+        timeComplexity: 'O(m + n)',
+        spaceComplexity: 'O(1)',
+        description: 'Merge nums2 into nums1 in sorted order.',
+        approach: 'Start from the end to avoid overwriting. Use three pointers.',
+        solution: `function merge(nums1, m, nums2, n) {
+    let i = m - 1, j = n - 1, k = m + n - 1;
+    
+    while (i >= 0 && j >= 0) {
+        if (nums1[i] > nums2[j]) {
+            nums1[k] = nums1[i];
+            i--;
+        } else {
+            nums1[k] = nums2[j];
+            j--;
+        }
+        k--;
+    }
+    
+    while (j >= 0) {
+        nums1[k] = nums2[j];
+        j--;
+        k--;
+    }
+}`,
+        keyPoints: ['Start from end to avoid overwriting', 'Three pointers technique'],
+        relatedProblems: ['merge-two-sorted-lists', 'sort-colors']
       }
     ]
   },
@@ -3120,6 +3383,172 @@ class Trie {
           'Sort emails within each account'
         ],
         relatedProblems: ['number-of-provinces', 'redundant-connection']
+      }
+    ]
+  },
+  
+  {
+    id: 'system-design',
+    name: 'System Design',
+    description: 'Data structure design and system architecture problems',
+    studyOrder: 17,
+    estimatedDays: 8,
+    keyTechniques: ['HashMap + LinkedList', 'Multiple Data Structures', 'API Design', 'Cache Design'],
+    problems: [
+      {
+        id: 'lru-cache',
+        title: 'LRU Cache',
+        difficulty: 'Medium',
+        pattern: 'System Design',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 146,
+        frequency: 'Very High',
+        timeComplexity: 'O(1)',
+        spaceComplexity: 'O(capacity)',
+        description: 'Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.',
+        approach: 'Use HashMap + Doubly Linked List. HashMap for O(1) access, DLL for O(1) insertion/deletion.',
+        solution: `class LRUCache {
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.cache = new Map();
+        
+        // Create dummy head and tail nodes
+        this.head = { key: 0, val: 0 };
+        this.tail = { key: 0, val: 0 };
+        this.head.next = this.tail;
+        this.tail.prev = this.head;
+    }
+    
+    addNode(node) {
+        // Add node right after head
+        node.prev = this.head;
+        node.next = this.head.next;
+        
+        this.head.next.prev = node;
+        this.head.next = node;
+    }
+    
+    removeNode(node) {
+        // Remove an existing node
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+    
+    moveToHead(node) {
+        // Move node to head (mark as recently used)
+        this.removeNode(node);
+        this.addNode(node);
+    }
+    
+    popTail() {
+        // Remove last node
+        const last = this.tail.prev;
+        this.removeNode(last);
+        return last;
+    }
+    
+    get(key) {
+        const node = this.cache.get(key);
+        if (node) {
+            this.moveToHead(node);
+            return node.val;
+        }
+        return -1;
+    }
+    
+    put(key, value) {
+        const node = this.cache.get(key);
+        
+        if (node) {
+            node.val = value;
+            this.moveToHead(node);
+        } else {
+            const newNode = { key, val: value };
+            
+            if (this.cache.size >= this.capacity) {
+                const tail = this.popTail();
+                this.cache.delete(tail.key);
+            }
+            
+            this.cache.set(key, newNode);
+            this.addNode(newNode);
+        }
+    }
+}`,
+        keyPoints: [
+          'HashMap for O(1) key lookup',
+          'Doubly linked list for O(1) insertion/deletion',
+          'Move accessed nodes to head, remove from tail'
+        ],
+        relatedProblems: ['lfu-cache', 'design-twitter']
+      },
+      {
+        id: 'design-twitter',
+        title: 'Design Twitter',
+        difficulty: 'Medium',
+        pattern: 'System Design',
+        companies: ['Amazon', 'Google', 'Meta'],
+        leetcodeNumber: 355,
+        frequency: 'High',
+        timeComplexity: 'O(k log n)',
+        spaceComplexity: 'O(n)',
+        description: 'Design a simplified version of Twitter with basic functionality.',
+        approach: 'Use HashMap for users, priority queue for timeline merging, and timestamp for ordering.',
+        solution: `class Twitter {
+    constructor() {
+        this.time = 0;
+        this.userTweets = new Map(); // userId -> [tweets]
+        this.userFollows = new Map(); // userId -> Set(followeeIds)
+    }
+    
+    postTweet(userId, tweetId) {
+        if (!this.userTweets.has(userId)) {
+            this.userTweets.set(userId, []);
+        }
+        this.userTweets.get(userId).push([this.time++, tweetId]);
+    }
+    
+    getNewsFeed(userId) {
+        const tweets = [];
+        
+        // Get user's own tweets
+        if (this.userTweets.has(userId)) {
+            tweets.push(...this.userTweets.get(userId));
+        }
+        
+        // Get followed users' tweets
+        if (this.userFollows.has(userId)) {
+            for (const followeeId of this.userFollows.get(userId)) {
+                if (this.userTweets.has(followeeId)) {
+                    tweets.push(...this.userTweets.get(followeeId));
+                }
+            }
+        }
+        
+        // Sort by timestamp and return top 10
+        tweets.sort((a, b) => b[0] - a[0]);
+        return tweets.slice(0, 10).map(tweet => tweet[1]);
+    }
+    
+    follow(followerId, followeeId) {
+        if (!this.userFollows.has(followerId)) {
+            this.userFollows.set(followerId, new Set());
+        }
+        this.userFollows.get(followerId).add(followeeId);
+    }
+    
+    unfollow(followerId, followeeId) {
+        if (this.userFollows.has(followerId)) {
+            this.userFollows.get(followerId).delete(followeeId);
+        }
+    }
+}`,
+        keyPoints: [
+          'Use timestamp for tweet ordering',
+          'HashMap for user data, Set for follow relationships',
+          'Merge and sort tweets for news feed generation'
+        ],
+        relatedProblems: ['lru-cache', 'design-hit-counter']
       }
     ]
   }

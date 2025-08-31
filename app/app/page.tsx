@@ -21,23 +21,23 @@ export default function HomePage() {
   const features = [
     {
       icon: Target,
-      title: '125+ Curated Problems',
-      description: 'Hand-picked problems from Blind 75, advanced patterns, and FAANG interviews'
+      title: '78+ Curated Problems',
+      description: 'Hand-picked problems from top patterns frequently asked in FAANG interviews'
     },
     {
       icon: Brain,
       title: 'Pattern-Based Learning',
-      description: '20 essential patterns covering all major DSA concepts and techniques'
+      description: '17 essential patterns covering all major DSA concepts and techniques'
     },
     {
       icon: TrendingUp,
-      title: 'Self-Paced Learning',
-      description: 'Learn at your own pace with detailed solutions and explanations'
+      title: 'Complete Solutions',
+      description: 'Detailed JavaScript solutions with explanations and complexity analysis'
     },
     {
       icon: Clock,
-      title: '90-Day Study Plan',
-      description: 'Structured learning schedule optimized for senior developer interviews'
+      title: 'Structured Learning',
+      description: 'Organized by patterns with progressive difficulty and comprehensive coverage'
     },
     {
       icon: Users,
