@@ -21,23 +21,23 @@ export default function HomePage() {
   const features = [
     {
       icon: Target,
-      title: 'Top 75 Curated Problems',
-      description: 'Hand-picked problems from Blind 75, NeetCode 150, and FAANG interviews'
+      title: '125+ Curated Problems',
+      description: 'Hand-picked problems from Blind 75, advanced patterns, and FAANG interviews'
     },
     {
       icon: Brain,
       title: 'Pattern-Based Learning',
-      description: '15 essential patterns covering all major DSA concepts and techniques'
+      description: '20 essential patterns covering all major DSA concepts and techniques'
     },
     {
       icon: TrendingUp,
-      title: 'Progress Tracking',
-      description: 'Track your progress, time spent, and mastery level for each problem'
+      title: 'Self-Paced Learning',
+      description: 'Learn at your own pace with detailed solutions and explanations'
     },
     {
       icon: Clock,
-      title: '60-Day Study Plan',
-      description: 'Structured learning schedule optimized for interview preparation'
+      title: '90-Day Study Plan',
+      description: 'Structured learning schedule optimized for senior developer interviews'
     },
     {
       icon: Users,

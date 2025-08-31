@@ -30,19 +30,15 @@ export function Navbar() {
       href: '/problems',
       label: 'Problems',
       icon: BookOpen,
-      badge: '75'
+      badge: '125+'
     },
     {
       href: '/schedule',
       label: 'Schedule',
       icon: Calendar,
-      badge: '60 Days'
+      badge: '90 Days'
     },
-    {
-      href: '/progress',
-      label: 'Progress',
-      icon: BarChart3
-    },
+
     {
       href: '/handbook',
       label: 'PDF Guide',
