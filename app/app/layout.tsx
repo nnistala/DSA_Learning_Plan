@@ -9,9 +9,33 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'DSA Master - Top 75 Interview Problems',
-  description: 'Master Data Structures and Algorithms with curated problems from top tech companies. 60-day study plan included.',
-  keywords: 'DSA, Data Structures, Algorithms, Interview Prep, FAANG, LeetCode, Programming',
+  title: 'DSA Learning Plan - 125+ FAANG Interview Problems',
+  description: 'Master Data Structures and Algorithms with 125+ curated problems from FAANG companies. 90-day structured study plan for senior developers.',
+  keywords: 'DSA, Data Structures, Algorithms, Interview Prep, FAANG, LeetCode, Programming, Senior Developer, System Design',
+  authors: [{ name: 'DSA Learning Plan' }],
+  creator: 'DSA Learning Plan',
+  publisher: 'DSA Learning Plan',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
+  manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({

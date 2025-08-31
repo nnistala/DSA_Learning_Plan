@@ -291,8 +291,9 @@ async function main() {
           connect: problemCompanies.map((c: any) => ({ id: c.id }))
         },
         frequency: problemData.frequency as any,
-        isBlind75: problemData.isBlind75,
-        isNeetCode: problemData.isNeetCode || false,
+        isBlind75: (problemData as any).isBlind75 || false,
+        isNeetCode: (problemData as any).isNeetCode || false,
+        isAdvanced: (problemData as any).isAdvanced || false,
         order: problemData.order,
         hints: [],
         tags: []
